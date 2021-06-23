@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>LocalNotNullByDefaultWithNullAssignment</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <repositories>
+        <repository>
+            <id>Central Repository</id>
+            <url>https://repo1.maven.org/maven2/</url>
+        </repository>
+    </repositories>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.eclipse.jdt/org.eclipse.jdt.annotation -->
+        <dependency>
+            <groupId>org.eclipse.jdt</groupId>
+            <artifactId>org.eclipse.jdt.annotation</artifactId>
+            <version>2.2.600</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.1</version>
+                    <configuration>
+                        <compilerId>eclipse</compilerId>
+                        <compilerArguments>
+                            <annotationpath>CLASSPATH</annotationpath>
+                            <classpath>${project.build.directory}/dependency</classpath>
+                        </compilerArguments>
+                        <compilerArgs>
+                            <arg>-err:+nullAnnot(org.eclipse.jdt.annotation.Nullable|org.eclipse.jdt.annotation.NonNull|org.eclipse.jdt.annotation.NonNullByDefault),+inheritNullAnnot,+nullAnnotConflict,-nullUncheckedConversion</arg>
+                            <arg>-warn:+null,+inheritNullAnnot,+nullAnnotRedundant,+nullDereference</arg>
+                        </compilerArgs>
+                        <showWarnings>true</showWarnings>
+                        <showDeprecation>true</showDeprecation>
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.codehaus.plexus</groupId>
+                            <artifactId>plexus-compiler-eclipse</artifactId>
+                            <version>2.8.8</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.eclipse.jdt</groupId>
+                            <artifactId>ecj</artifactId>
+                            <version>3.23.0</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+</project>
